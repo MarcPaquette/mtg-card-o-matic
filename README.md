@@ -1,0 +1,1 @@
+# mtg-card-o-matic
