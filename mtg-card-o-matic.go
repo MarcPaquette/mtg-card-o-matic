@@ -46,7 +46,7 @@ type Purchase struct {
 	Amazon          string
 	Ebay            string
 	Tcgplayer       string
-	magiccardmarket string
+	Magiccardmarket string
 	Cardhoarder     string
 	Card_kingdome   string
 	Mtgo_traders    string
