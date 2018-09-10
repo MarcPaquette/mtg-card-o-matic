@@ -107,37 +107,7 @@ type MtgCard struct {
 }
 
 var cardWidth = 40
-var card_height = 30
-
-var card string = `
-+--------------------------------------+
-|{THECREATURESVERYLONGNAME}  {MANACOST}| 
-+--------------------------------------+
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-+--------------------------------------+
-|{THECREATURETYPELINE}         {R}{SET}|
-+--------------------------------------+
-|{ORACLETEXT}                          |
-|                                      |
-|                                      |
-|                                      |
-|                                      |
-|   --------------------------------   |
-|{FLAVORTEXT}                          |
-|                                      |
-+--------------------------------------+
-|                         {POWER/TOUGH}|
-+--------------------------------------+
-`
+var cardHeight = 30
 
 func spaceFiller(width int) string {
 	var spaceString string
