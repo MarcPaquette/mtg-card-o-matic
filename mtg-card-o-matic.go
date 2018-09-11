@@ -107,7 +107,7 @@ type MtgCard struct {
 	Purchase_uris     Purchase
 }
 
-var cardWidth = 40
+var cardWidth = 45
 var cardHeight = 30
 
 func Filler(width int, fill string) string {
@@ -142,7 +142,10 @@ func textWrapper(wrapText string, width int) string {
 func (mtgcard MtgCard) String() string {
 	var formatedCard string
 
+	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += mtgcard.Name + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Name)+utf8.RuneCountInString(ManaSymbol(mtgcard.Mana_cost))), " ") + ManaSymbol(mtgcard.Mana_cost) + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
+	formatedCard += "\n\n\n\n\n\n"
 	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += mtgcard.Type_line + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Type_line)+utf8.RuneCountInString(mtgcard.Rarity+" "+mtgcard.Set)), " ") + mtgcard.Rarity + " " + mtgcard.Set + "\n"
 	formatedCard += Filler(cardWidth, "-") + "\n"
@@ -151,6 +154,7 @@ func (mtgcard MtgCard) String() string {
 	formatedCard += textWrapper(mtgcard.Flavor_text, cardWidth) + "\n"
 	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += Filler(cardWidth-utf8.RuneCountInString(PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness)), " ") + PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness) + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
 	return formatedCard
 }
 
