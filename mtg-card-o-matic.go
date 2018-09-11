@@ -127,11 +127,11 @@ func textWrapper(wrapText string, width int) string {
 
 	for _, i := range splitText {
 		if lineLength+len(i+" ") > width {
-			wrappedString += "\n" + i
+			wrappedString += "\n" + i + " "
 			lineLength = len(i + " ")
 		} else {
-			wrappedString += " " + i
-			lineLength += len(" " + i)
+			wrappedString += i + " "
+			lineLength += len(i + " ")
 		}
 
 	}
@@ -141,11 +141,11 @@ func textWrapper(wrapText string, width int) string {
 
 func (mtgcard MtgCard) String() string {
 	var formatedCard string
-
+	//TODO: Add card border
 	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += mtgcard.Name + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Name)+utf8.RuneCountInString(ManaSymbol(mtgcard.Mana_cost))), " ") + ManaSymbol(mtgcard.Mana_cost) + "\n"
 	formatedCard += Filler(cardWidth, "-") + "\n"
-	formatedCard += "\n\n\n\n\n\n"
+	formatedCard += "\n\n\n\n\n\n" //TODO: Add Ascii Art Conversion of card art here someday
 	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += mtgcard.Type_line + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Type_line)+utf8.RuneCountInString(mtgcard.Rarity+" "+mtgcard.Set)), " ") + mtgcard.Rarity + " " + mtgcard.Set + "\n"
 	formatedCard += Filler(cardWidth, "-") + "\n"
