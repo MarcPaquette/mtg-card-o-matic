@@ -9,6 +9,7 @@ import (
 	"log"
 	"net/http"
 	"strings"
+	"unicode/utf8"
 )
 
 type ImageUris struct {
@@ -109,12 +110,12 @@ type MtgCard struct {
 var cardWidth = 40
 var cardHeight = 30
 
-func spaceFiller(width int) string {
-	var spaceString string
+func Filler(width int, fill string) string {
+	var fillString string
 	for i := 0; i < width; i++ {
-		spaceString = spaceString + " "
+		fillString = fillString + fill
 	}
-	return spaceString
+	return fillString
 }
 
 //Wraps text on spaces
@@ -129,8 +130,8 @@ func textWrapper(wrapText string, width int) string {
 			wrappedString += "\n" + i
 			lineLength = len(i + " ")
 		} else {
-			wrappedString += i + " "
-			lineLength += len(i + " ")
+			wrappedString += " " + i
+			lineLength += len(" " + i)
 		}
 
 	}
@@ -141,15 +142,15 @@ func textWrapper(wrapText string, width int) string {
 func (mtgcard MtgCard) String() string {
 	var formatedCard string
 
-	formatedCard += mtgcard.Name + spaceFiller(cardWidth-(len(mtgcard.Name)+len((mtgcard.Mana_cost)))) + ManaSymbol(mtgcard.Mana_cost) + "\n"
-	formatedCard += "------------" + "\n"
-	formatedCard += mtgcard.Type_line + spaceFiller(cardWidth-(len(mtgcard.Type_line)+len(mtgcard.Rarity+" "+mtgcard.Set))) + mtgcard.Rarity + " " + mtgcard.Set + "\n"
-	formatedCard += "------------" + "\n"
+	formatedCard += mtgcard.Name + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Name)+utf8.RuneCountInString(ManaSymbol(mtgcard.Mana_cost))), " ") + ManaSymbol(mtgcard.Mana_cost) + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
+	formatedCard += mtgcard.Type_line + Filler(cardWidth-(utf8.RuneCountInString(mtgcard.Type_line)+utf8.RuneCountInString(mtgcard.Rarity+" "+mtgcard.Set)), " ") + mtgcard.Rarity + " " + mtgcard.Set + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += textWrapper(ManaSymbol(mtgcard.Oracle_text), cardWidth) + "\n"
-	formatedCard += "------------" + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
 	formatedCard += textWrapper(mtgcard.Flavor_text, cardWidth) + "\n"
-	formatedCard += "------------" + "\n"
-	formatedCard += spaceFiller(cardWidth-len(PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness))) + PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness) + "\n"
+	formatedCard += Filler(cardWidth, "-") + "\n"
+	formatedCard += Filler(cardWidth-utf8.RuneCountInString(PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness)), " ") + PowerToughnessFormat(mtgcard.Power, mtgcard.Toughness) + "\n"
 	return formatedCard
 }
 
